@@ -1,0 +1,8 @@
+{
+  "name": "Bitácora Docente Compartida · ESRN Paulo VI",
+  "short_name": "Bitácora ESRN",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f5f8",
+  "theme_color": "#17324d"
+}

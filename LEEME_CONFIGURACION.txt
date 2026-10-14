@@ -1,0 +1,50 @@
+BITÁCORA DOCENTE COMPARTIDA — ESRN PAULO VI
+============================================
+
+Este paquete ya contiene la configuración web de Firebase del proyecto bitacora-sociales-paulo-vi.
+La aplicación NO está publicada todavía. Hay que publicar los archivos y aplicar las reglas de Firestore antes de usarla.
+
+QUÉ INCLUYE
+- Ingreso con correo y contraseña.
+- Lista de los nueve correos docentes autorizados.
+- 15 divisiones y materias/talleres configurados.
+- Bitácora compartida en Firestore, edición y eliminación de registros, búsqueda, exportación CSV y dictado por voz del navegador.
+- Aviso y reenvío de verificación por correo para cuentas no verificadas.
+
+PASO 1 — PUBLICAR LAS REGLAS DE FIRESTORE (ANTES DE USAR LA APP)
+1. Entrá a https://console.firebase.google.com/ y abrí bitacora-sociales-paulo-vi.
+2. Abrí Firestore Database > pestaña Reglas.
+3. Abrí el archivo firestore.rules de este paquete, copiá todo su contenido y reemplazá las reglas existentes.
+4. Pulsá Publicar.
+Estas reglas permiten leer, crear, editar y eliminar documentos de la colección bitacora solo a cuentas autenticadas, verificadas y con correo incluido en la lista autorizada.
+No habilites reglas públicas ni uses allow read, write: if true.
+
+PASO 2 — PUBLICAR LA APLICACIÓN
+Método preparado: GitHub Pages.
+1. Creá un repositorio en https://github.com/ y subí el contenido de la carpeta app (incluida la carpeta .github).
+2. En Settings > Pages, seleccioná GitHub Actions si lo solicita.
+3. En Actions, ejecutá “Publicar Bitácora en GitHub Pages” o esperá a que corra tras subir los archivos.
+4. Copiá la URL que GitHub Pages muestre al finalizar.
+5. En Firebase > Authentication > Configuración (o Settings) > Dominios autorizados, agregá el dominio de la URL publicada (solo el dominio, sin https ni rutas).
+
+PASO 3 — PROBAR LOS DOS USUARIOS
+Los usuarios creados manualmente desde Firebase pueden no tener correo verificado. Abran la URL publicada, ingresen con el correo y contraseña que se definieron al crearlos y pulsen “Reenviar verificación” si aparece ese aviso. Abran el mensaje de Firebase y confirmen el correo. Después vuelvan a la aplicación e ingresen otra vez.
+Si alguno no recuerda su contraseña, usen “Recuperar contraseña”.
+
+PASO 4 — PRUEBAS
+Con ambos usuarios, comprobar:
+- inicio de sesión y verificación;
+- crear un registro en una división;
+- ver el mismo registro desde el segundo usuario/dispositivo;
+- editarlo y eliminarlo;
+- probar dictado por voz y exportación CSV.
+
+PASO 5 — SUMAR EL RESTO DEL EQUIPO
+Cuando las pruebas funcionen, se pueden habilitar los otros siete docentes. La lista de correos autorizados está en index.html y en firestore.rules: si se agrega una dirección, hay que actualizar ambos lugares y volver a publicar la app y las reglas. Para un control más estricto, crear las cuentas desde Firebase Console y deshabilitar la creación pública de cuentas cuando el equipo esté completo.
+
+SEGURIDAD Y LÍMITES
+- No compartas contraseñas ni códigos de verificación.
+- La configuración web de Firebase está incluida en el código cliente; no es una contraseña. La protección real la dan las reglas y Authentication.
+- Este paquete todavía no es una URL publicada ni un APK Android.
+- El proyecto está en Spark, pero revisá el uso y los límites vigentes de Firebase/GitHub Pages.
+- Las copias de seguridad programadas no están configuradas.
