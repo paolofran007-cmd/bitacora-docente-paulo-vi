@@ -8,7 +8,25 @@ body{margin:0;background:#f2f5f8;color:#17212b;font-family:system-ui,Arial}heade
 <section class="card hidden" id="work"><p id="who"></p><button class="alt" id="out">Cerrar sesión</button><h2>Registrar clase</h2><div class="grid"><div><label>Fecha</label><input id="date" type="date"></div><div><label>Año y división</label><select id="division"></select></div><div><label>Materia/taller</label><select id="space"></select></div><div><label>Eje/unidad (opcional)</label><input id="axis"></div></div><label>Temas trabajados y actividades</label><textarea id="topic" placeholder="Dictá o escribí el contenido de la clase"></textarea><button id="save">Guardar registro compartido</button><button class="alt" id="clear">Limpiar</button><button class="alt" id="dictate">🎙 Dictar por voz</button><p id="msg" class="status"></p></section>
 <section class="card hidden" id="records"><h2>Bitácora compartida</h2><div class="grid"><div><label>Buscar</label><input id="search" placeholder="Tema, docente…"></div><div><label>Filtrar división</label><select id="filter"><option value="">Todas</option></select></div></div><button class="alt" id="csv">Descargar CSV</button><div id="list"></div></section>
 </main>
-<script type="module">
+<script>
+window.onNativeSpeechResult = function(text) {
+  if (text) {
+    document.getElementById("topic").value = text;
+    document.getElementById("msg").textContent =
+      "Revisá materia, división y contenido antes de guardar.";
+  }
+};
+
+document.addEventListener("click", function(event) {
+  const button = event.target.closest("#dictate");
+  if (button && window.AndroidSpeech) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.AndroidSpeech.startListening();
+  }
+}, true);
+</script>
+ <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,sendEmailVerification,signOut} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import {getFirestore,collection,addDoc,doc,updateDoc,deleteDoc,onSnapshot,query,orderBy,serverTimestamp} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
